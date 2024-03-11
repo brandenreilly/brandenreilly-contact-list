@@ -11,18 +11,23 @@ export const Contacts = () => {
 		showModal: false,
 		currentID: 0
 	});
+	useEffect(()=>{
+		fetch("https://playground.4geeks.com/apis/fake/contact/agenda/breilly")
+		.then(resp => resp.json())
+		.then(data => setContacts(data))
+	},[])
 
 	return (
 		<div className="container">
 			<div>
 				<p className="text-right my-3">
 					<Link className="btn btn-success" to="/add">
-						Add new contact
+						Add New Contact
 					</Link>
 				</p>
 				<div id="contacts" className="panel-collapse collapse show" aria-expanded="true">
 					<ul className="list-group pull-down" id="contact-list">
-					    {contacts.map((contact , index)=>{
+					    { contacts.length > 0 && contacts.map((contact , index)=>{
                         return <ContactCard key={index} onDelete={() => setState({ showModal: true , currentID: contact.id })} id={contact.id} contact={contact}/>
                         })}
                     </ul>

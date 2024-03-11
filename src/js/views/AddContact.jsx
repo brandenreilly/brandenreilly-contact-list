@@ -8,24 +8,30 @@ export const AddContact = () => {
     const [email , setEmail] = useState("")
     const [phone , setPhone] = useState("")
     const [address , setAddress] = useState("")
-	
-	const addContact = {
-		method: 'POST',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({
-			full_name: `${fullName}`,
-			email: `${email}`,
-			agenda_slug: `breilly`,
-			address: `${address}`,
-			phone: `${phone}`
-		})
-	};
 
-	const addContactFunc = () => {
-		fetch("https://playground.4geeks.com/apis/fake/contact/", addContact)
-		.then(resp => resp.json())
-		.then(data => setContacts(data))
-	}
+	const addData = async (id) => {
+        const addContact = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                full_name: fullName,
+                email: email,
+                agenda_slug: "breilly",
+                address: address,
+                phone: phone
+            })
+        };
+		const response = await fetch('https://playground.4geeks.com/apis/fake/contact', addContact);
+		if (response.ok) {
+			const data = await response.json();
+			fetch("https://playground.4geeks.com/apis/fake/contact/agenda/breilly")
+			.then(resp => resp.json())
+			.then(respData => setContacts(respData))
+		} else {
+			console.log('error: ', response.status, response.statusText);
+			return {error: {status: response.status, statusText: response.statusText}};
+		};
+	};
 
 	return (
 		<div className="container">
@@ -48,11 +54,13 @@ export const AddContact = () => {
 						<label htmlFor="address">Address</label>
 						<input type="text" id="address" required className="form-control" autoComplete="street-address" placeholder="Enter address" value={address} onChange={(e)=>{setAddress(e.target.value)}}/>
 					</div>
-					<button type="submit" className="btn btn-primary form-control" onClick={()=>{
-						addContactFunc()
-					}}>
-						Save
-					</button>
+					<Link to="/">
+						<button type="submit" className="btn btn-primary form-control" onClick={()=>{
+							addData()
+						}}>
+							Save
+						</button>
+					</Link>
 					<Link className="mt-3 w-100 text-center" to="/">
 						Or Back to Contacts
 					</Link>

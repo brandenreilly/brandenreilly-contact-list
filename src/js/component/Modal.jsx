@@ -53,7 +53,7 @@ export const Modal = props => {
 						<p>Warning: unknown consequences after this point... Kidding!</p>
 					</div>
 					<div className="modal-footer">
-						<button type="button" className="btn btn-primary">
+						<button type="button" aria-label="Close" data-dismiss="modal" className="btn btn-primary" onClick={()=>{props.onClose()}}>
 							Don't Delete
 						</button>
 						<button type="button" className="btn btn-danger" data-dismiss="modal" onClick={()=>{

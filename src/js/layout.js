@@ -13,6 +13,8 @@ import { Footer } from "./component/footer";
 import { Contacts } from "./views/Contacts.jsx";
 import { AddContact } from "./views/AddContact.jsx";
 import { EditContact } from "./component/EditContact.jsx";
+import { CardLayoutContacts } from "./component/ContactListCards.jsx"
+import { MoreInfoPage } from "./component/MoreInfo.jsx";
 
 export const AppContext = createContext(null);
 
@@ -37,9 +39,10 @@ const Layout = () => {
 					<Routes>
 						<Route exact path="/index.html" element={<Contacts/>} />
 						<Route exact path="/" element={<Contacts/>} />
-						<Route exact path="/contacts" element={<Contacts/>} />
+						<Route exact path="/contacts" element={<CardLayoutContacts/>} />
 						<Route exact path="/add" element={<AddContact/>} />
 						<Route exact path="/edit" element={<EditContact/>} />
+						<Route path="/contacts/:contactIndex" element={<MoreInfoPage />} />
 						<Route render={() => <h1 className="notfound">Not found!</h1>} />
 					</Routes>
 					<Footer />

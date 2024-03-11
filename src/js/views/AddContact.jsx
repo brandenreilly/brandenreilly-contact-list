@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../layout";
 
 export const AddContact = () => {
@@ -31,7 +31,7 @@ export const AddContact = () => {
 			console.log('error: ', response.status, response.statusText);
 			return {error: {status: response.status, statusText: response.statusText}};
 		};
-	};
+};
 
 	return (
 		<div className="container">
@@ -56,9 +56,9 @@ export const AddContact = () => {
 					</div>
 					<Link to="/">
 						<button type="submit" className="btn btn-primary form-control" onClick={()=>{
-							addData()
-						}}>
-							Save
+								addData()
+							}}>
+								Save
 						</button>
 					</Link>
 					<Link className="mt-3 w-100 text-center" to="/">
